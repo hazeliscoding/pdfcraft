@@ -7011,8 +7011,8 @@ mod devicen_inks;
 // patch 27).
 mod isolated_cmyk_groups;
 
-// #2780: images and soft masks whose data stops short of their height (vendored
-// hayro-interpret patch 67).
+// #2780: images and soft masks whose data stops short of their height, and 16-bit data
+// with an odd byte count (vendored hayro-interpret patches 67 and 68).
 mod short_image_data;
 
 /// #3109 / #3116: clipping-only text (`7 Tr`) installs a clip for subsequent painting
