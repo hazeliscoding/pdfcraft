@@ -553,7 +553,11 @@ impl PdfCraftApp {
             }
             return OpenOutcome::Focused;
         }
-        if self.pending_opens.iter().any(|p| p.path.as_deref().is_some_and(|p| same_file(p, path))) {
+        if let Some(pending) = self.pending_opens.iter_mut().find(|p| p.path.as_deref().is_some_and(|p| same_file(p, path))) {
+            // Asked for another place before it finished opening: it opens at the latest one.
+            if after_open.is_some() {
+                pending.after_open = after_open;
+            }
             return OpenOutcome::Pending;
         }
         let name = std::path::Path::new(path).file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_else(|| path.to_string());
